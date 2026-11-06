@@ -589,7 +589,10 @@ if (prefersReducedMotion) {
         apply(next);
     });
 
-    apply(root.dataset.theme === "light" ? "light" : "dark");
+    let saved = null;
+    try { saved = localStorage.getItem("theme"); } catch (e) { }
+    apply(saved === "light" ? "light" : "dark");
+    window.addEventListener("storage", e => { if (e.key === "theme" && (e.newValue === "light" || e.newValue === "dark")) apply(e.newValue); });
 })();
 
 
@@ -1025,68 +1028,6 @@ if (prefersReducedMotion) {
             if (!c.classList.contains("pending")) openDownloadForm(c);
         });
     });
-})();
-
-
-/* ========================================
-   15. FLOATING TERMINAL (CSE background)
-======================================== */
-(() => {
-    const host = document.querySelector(".background-effects");
-    if (!host) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    const box = document.createElement("div");
-    box.className = "cse-terminal";
-    box.setAttribute("aria-hidden", "true");
-    box.innerHTML = '<div class="ct-bar"><i></i><i></i><i></i><span>sajid@portfolio: ~</span></div><pre class="ct-body"></pre>';
-    host.appendChild(box);
-    const body = box.querySelector(".ct-body");
-
-    const script = [
-        ["$ g++ -O2 solve.cpp -o solve", "cmd"],
-        ["compiled: 0 errors, 0 warnings", "ok"],
-        ["$ ./solve < input.txt", "cmd"],
-        ["Accepted  [0.04s, 3.1MB]", "ok"],
-        ["$ git commit -m \"add BFS\"", "cmd"],
-        ["[main 7f3a9c1] add BFS", "ok"],
-        ["$ nmap -sV 10.0.0.5", "cmd"],
-        ["22/tcp open  ssh", "ok"],
-        ["$ python train.py --epochs 20", "cmd"],
-        ["epoch 20/20  acc=0.97", "ok"],
-        ["$ ls notes/", "cmd"],
-        ["CSE241.pdf  CSE343.pdf  ...", "ok"]
-    ];
-    const MAX = 7;
-    const lines = [];
-
-    function render(cursorOn) {
-        body.innerHTML = lines.map(l => `<span class="${l.k}">${l.t.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</span>`).join("\n") + (cursorOn ? '<span class="ct-cur">▌</span>' : "");
-    }
-
-    if (reduce) {
-        script.slice(0, 4).forEach(s => lines.push({ t: s[0], k: s[1] }));
-        render(false);
-        return;
-    }
-
-    let idx = 0;
-    function next() {
-        if (document.hidden) { setTimeout(next, 1500); return; }
-        const [text, kind] = script[idx++ % script.length];
-        const line = { t: "", k: kind };
-        lines.push(line);
-        if (lines.length > MAX) lines.shift();
-        let n = 0;
-        const typeSpeed = kind === "cmd" ? 55 : 16;
-        (function tick() {
-            line.t = text.slice(0, ++n);
-            render(true);
-            if (n < text.length) setTimeout(tick, typeSpeed);
-            else setTimeout(next, kind === "cmd" ? 450 : 1300);
-        })();
-    }
-    next();
 })();
 
 
