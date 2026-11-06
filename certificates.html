@@ -17,6 +17,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
         rel="stylesheet">
+    <script>try { var t = localStorage.getItem('theme'); document.documentElement.dataset.theme = (t === 'light' || t === 'dark') ? t : 'dark' } catch (e) { document.documentElement.dataset.theme = 'dark' }</script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -41,6 +42,7 @@
                 <a href="index.html#about" class="nav-link">About</a>
                 <a href="projects.html" class="nav-link">Projects</a>
                 <a href="certificates.html" class="nav-link">Certificates</a>
+                <a href="notes.html" class="nav-link">Notes</a>
                 <a href="contact.html" class="nav-link">Contact</a>
                 <a href="mailto:mdmirajhossansajidpc@gmail.com?subject=Portfolio%20inquiry" class="nav-contact">Let's
                     Talk ↗</a>
@@ -80,6 +82,10 @@
             <div class="certificates-grid">
 
                 <article class="certificate-card spotlight-card reveal">
+                    <figure class="certificate-thumb">
+                        <img data-img="images/certificates/cert-01"
+                            alt="Certificate: Certified Penetration Testing Engineer (CPTE)" loading="lazy">
+                    </figure>
                     <div class="certificate-top">
                         <span class="certificate-icon">🛡️</span>
                         <span class="certificate-type">Certification</span>
@@ -92,14 +98,30 @@
                             Professional certification in penetration testing.
                         </p>
                     </div>
-                    <a class="certificate-link"
-                        href="https://drive.google.com/file/d/1aGufmjatNx9DVs5lz85v7NmBzmQtfxHk/view?usp=sharing"
-                        target="_blank" rel="noopener noreferrer">
-                        View Certificate <span>↗</span>
-                    </a>
+                    <div class="certificate-actions">
+                        <a class="certificate-link"
+                            href="https://drive.google.com/file/d/1aGufmjatNx9DVs5lz85v7NmBzmQtfxHk/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            View Certificate <span>↗</span>
+                        </a>
+                        <button class="event-btn" type="button" data-event="images/events/cert-01"
+                            data-title="Certified Penetration Testing Engineer (CPTE)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <circle cx="9" cy="10" r="1.6" />
+                                <path d="m21 16-5-5-8 8" />
+                            </svg>
+                            View Event Pictures
+                        </button>
+                    </div>
                 </article>
 
                 <article class="certificate-card spotlight-card reveal">
+                    <figure class="certificate-thumb">
+                        <img data-img="images/certificates/cert-02"
+                            alt="Certificate: Applied Penetration Testing Engineer" loading="lazy">
+                    </figure>
                     <div class="certificate-top">
                         <span class="certificate-icon">🔐</span>
                         <span class="certificate-type">Training</span>
@@ -112,14 +134,30 @@
                             Applied training in penetration testing.
                         </p>
                     </div>
-                    <a class="certificate-link"
-                        href="https://drive.google.com/file/d/1xZTKhl89JINywQb6bGfWgI5ONCXXZR-8/view?usp=sharing"
-                        target="_blank" rel="noopener noreferrer">
-                        View Certificate <span>↗</span>
-                    </a>
+                    <div class="certificate-actions">
+                        <a class="certificate-link"
+                            href="https://drive.google.com/file/d/1xZTKhl89JINywQb6bGfWgI5ONCXXZR-8/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            View Certificate <span>↗</span>
+                        </a>
+                        <button class="event-btn" type="button" data-event="images/events/cert-02"
+                            data-title="Applied Penetration Testing Engineer">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <circle cx="9" cy="10" r="1.6" />
+                                <path d="m21 16-5-5-8 8" />
+                            </svg>
+                            View Event Pictures
+                        </button>
+                    </div>
                 </article>
 
                 <article class="certificate-card spotlight-card reveal">
+                    <figure class="certificate-thumb">
+                        <img data-img="images/certificates/cert-03"
+                            alt="Certificate: National Mathematics Carnival 2026" loading="lazy">
+                    </figure>
                     <div class="certificate-top">
                         <span class="certificate-icon">📐</span>
                         <span class="certificate-type">Achievement</span>
@@ -132,14 +170,30 @@
                             Participation in a university-level mathematics event.
                         </p>
                     </div>
-                    <a class="certificate-link"
-                        href="https://drive.google.com/file/d/1siVY1CVr7Qww-t73WsN2s3PQjhr9ZWTZ/view?usp=sharing"
-                        target="_blank" rel="noopener noreferrer">
-                        View Certificate <span>↗</span>
-                    </a>
+                    <div class="certificate-actions">
+                        <a class="certificate-link"
+                            href="https://drive.google.com/file/d/1siVY1CVr7Qww-t73WsN2s3PQjhr9ZWTZ/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            View Certificate <span>↗</span>
+                        </a>
+                        <button class="event-btn" type="button" data-event="images/events/cert-03"
+                            data-title="National Mathematics Carnival 2026">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <circle cx="9" cy="10" r="1.6" />
+                                <path d="m21 16-5-5-8 8" />
+                            </svg>
+                            View Event Pictures
+                        </button>
+                    </div>
                 </article>
 
                 <article class="certificate-card spotlight-card reveal">
+                    <figure class="certificate-thumb">
+                        <img data-img="images/certificates/cert-04"
+                            alt="Certificate: EDGE Digital Skills Training Program" loading="lazy">
+                    </figure>
                     <div class="certificate-top">
                         <span class="certificate-icon">💻</span>
                         <span class="certificate-type">Training</span>
@@ -152,14 +206,29 @@
                             Digital skills training program.
                         </p>
                     </div>
-                    <a class="certificate-link"
-                        href="https://drive.google.com/file/d/1V4pPyjILb0uB_GPJU2I9YumWPleEK3W1/view?usp=sharing"
-                        target="_blank" rel="noopener noreferrer">
-                        View Certificate <span>↗</span>
-                    </a>
+                    <div class="certificate-actions">
+                        <a class="certificate-link"
+                            href="https://drive.google.com/file/d/1V4pPyjILb0uB_GPJU2I9YumWPleEK3W1/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            View Certificate <span>↗</span>
+                        </a>
+                        <button class="event-btn" type="button" data-event="images/events/cert-04"
+                            data-title="EDGE Digital Skills Training Program">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <circle cx="9" cy="10" r="1.6" />
+                                <path d="m21 16-5-5-8 8" />
+                            </svg>
+                            View Event Pictures
+                        </button>
+                    </div>
                 </article>
 
                 <article class="certificate-card spotlight-card reveal">
+                    <figure class="certificate-thumb">
+                        <img data-img="images/certificates/cert-05" alt="Certificate: Phitron Batch 7" loading="lazy">
+                    </figure>
                     <div class="certificate-top">
                         <span class="certificate-icon">🚀</span>
                         <span class="certificate-type">Course Completion</span>
@@ -172,14 +241,30 @@
                             Completion of the Phitron Batch 7 course.
                         </p>
                     </div>
-                    <a class="certificate-link"
-                        href="https://drive.google.com/file/d/1FMTEjgA6GUOMOcitUfxPOTatO8ZkIpOb/view?usp=sharing"
-                        target="_blank" rel="noopener noreferrer">
-                        View Certificate <span>↗</span>
-                    </a>
+                    <div class="certificate-actions">
+                        <a class="certificate-link"
+                            href="https://drive.google.com/file/d/1FMTEjgA6GUOMOcitUfxPOTatO8ZkIpOb/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            View Certificate <span>↗</span>
+                        </a>
+                        <button class="event-btn" type="button" data-event="images/events/cert-05"
+                            data-title="Phitron Batch 7">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <circle cx="9" cy="10" r="1.6" />
+                                <path d="m21 16-5-5-8 8" />
+                            </svg>
+                            View Event Pictures
+                        </button>
+                    </div>
                 </article>
 
                 <article class="certificate-card spotlight-card reveal">
+                    <figure class="certificate-thumb">
+                        <img data-img="images/certificates/cert-06"
+                            alt="Certificate: 16th Bangladesh Mathematics Society Conference 2025" loading="lazy">
+                    </figure>
                     <div class="certificate-top">
                         <span class="certificate-icon">🎓</span>
                         <span class="certificate-type">Participation</span>
@@ -192,14 +277,30 @@
                             Participation in the 16th conference.
                         </p>
                     </div>
-                    <a class="certificate-link"
-                        href="https://drive.google.com/file/d/1QPG5b1tlN-T8kl6rR8Dgfssc-mqlh5J1/view?usp=sharing"
-                        target="_blank" rel="noopener noreferrer">
-                        View Certificate <span>↗</span>
-                    </a>
+                    <div class="certificate-actions">
+                        <a class="certificate-link"
+                            href="https://drive.google.com/file/d/1QPG5b1tlN-T8kl6rR8Dgfssc-mqlh5J1/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            View Certificate <span>↗</span>
+                        </a>
+                        <button class="event-btn" type="button" data-event="images/events/cert-06"
+                            data-title="16th Bangladesh Mathematics Society Conference 2025">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <circle cx="9" cy="10" r="1.6" />
+                                <path d="m21 16-5-5-8 8" />
+                            </svg>
+                            View Event Pictures
+                        </button>
+                    </div>
                 </article>
 
                 <article class="certificate-card spotlight-card reveal">
+                    <figure class="certificate-thumb">
+                        <img data-img="images/certificates/cert-07" alt="Certificate: ICPC Dhaka Regional 2024"
+                            loading="lazy">
+                    </figure>
                     <div class="certificate-top">
                         <span class="certificate-icon">🏆</span>
                         <span class="certificate-type">Programming Contest</span>
@@ -212,11 +313,23 @@
                             Participation in the ICPC Dhaka Regional contest.
                         </p>
                     </div>
-                    <a class="certificate-link"
-                        href="https://drive.google.com/file/d/1leOF_BLz3Sz6mmepMdekQzjdg12MLAfG/view?usp=sharing"
-                        target="_blank" rel="noopener noreferrer">
-                        View Certificate <span>↗</span>
-                    </a>
+                    <div class="certificate-actions">
+                        <a class="certificate-link"
+                            href="https://drive.google.com/file/d/1leOF_BLz3Sz6mmepMdekQzjdg12MLAfG/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            View Certificate <span>↗</span>
+                        </a>
+                        <button class="event-btn" type="button" data-event="images/events/cert-07"
+                            data-title="ICPC Dhaka Regional 2024">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <circle cx="9" cy="10" r="1.6" />
+                                <path d="m21 16-5-5-8 8" />
+                            </svg>
+                            View Event Pictures
+                        </button>
+                    </div>
                 </article>
 
             </div>

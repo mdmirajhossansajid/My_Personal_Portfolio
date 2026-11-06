@@ -553,3 +553,653 @@ if (prefersReducedMotion) {
         finally { btn.disabled = false; }
     });
 })();
+
+
+/* ========================================
+   11. DAY / NIGHT THEME TOGGLE
+======================================== */
+(() => {
+    const root = document.documentElement;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const moon = '<svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+    const sun = '<svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+
+    function apply(theme) {
+        root.dataset.theme = theme;
+        if (meta) meta.content = theme === "light" ? "#f3f6fc" : "#080c18";
+        const b = document.querySelector(".theme-toggle");
+        if (b) {
+            b.setAttribute("aria-label", theme === "light" ? "Switch to night mode" : "Switch to day mode");
+            b.title = theme === "light" ? "Night mode" : "Day mode";
+        }
+        document.dispatchEvent(new CustomEvent("themechange", { detail: theme }));
+    }
+
+    const btn = document.createElement("button");
+    btn.className = "theme-toggle";
+    btn.type = "button";
+    btn.innerHTML = moon + sun;
+    const container = document.querySelector(".nav-container");
+    const burger = document.querySelector(".menu-toggle");
+    if (container) container.insertBefore(btn, burger || null);
+
+    btn.addEventListener("click", () => {
+        const next = root.dataset.theme === "light" ? "dark" : "light";
+        try { localStorage.setItem("theme", next); } catch (e) { }
+        apply(next);
+    });
+
+    apply(root.dataset.theme === "light" ? "light" : "dark");
+})();
+
+
+/* ========================================
+   12. CSE BACKGROUND: graph network + code tokens
+======================================== */
+(() => {
+    const host = document.querySelector(".background-effects");
+    if (!host) return;
+
+    const cv = document.createElement("canvas");
+    cv.className = "cse-canvas";
+    cv.setAttribute("aria-hidden", "true");
+    host.prepend(cv);
+    const ctx = cv.getContext("2d");
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const TOKENS = ["0", "1", "{ }", "</>", "O(n)", "git", "int", "#include", "for", "0x1F", "&&", "=>",
+        "SELECT", "malloc", "BFS", "DFS", "sudo", "TCP", "ls -l", "NULL"];
+
+    let W = 0, H = 0, nodes = [], tokens = [], packets = [], cols = [];
+    let mx = -9999, my = -9999, raf = 0;
+
+    const rand = (a, b) => a + Math.random() * (b - a);
+    const light = () => document.documentElement.dataset.theme === "light";
+
+    function makeToken(anywhere) {
+        return {
+            x: rand(0, W),
+            y: anywhere ? rand(0, H) : H + 20,
+            v: rand(.12, .38),
+            s: rand(11, 17),
+            t: TOKENS[(Math.random() * TOKENS.length) | 0],
+            a: rand(.07, .17)
+        };
+    }
+
+    function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        W = window.innerWidth;
+        H = window.innerHeight;
+        cv.width = W * dpr;
+        cv.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const n = Math.min(70, Math.round(W * H / 20000));
+        nodes = Array.from({ length: n }, () => ({
+            x: rand(0, W), y: rand(0, H),
+            vx: rand(-.22, .22), vy: rand(-.22, .22), r: rand(1, 2.2)
+        }));
+        const t = Math.min(26, Math.round(W * H / 50000));
+        tokens = Array.from({ length: t }, () => makeToken(true));
+        packets = [];
+        cols = [];
+        if (W > 700) {   // binary rain along both screen edges
+            const zone = W * 0.11;
+            for (let x = 8; x < W; x += 24) {
+                if (x < zone || x > W - zone) cols.push({
+                    x, y: rand(-H, H), v: rand(.7, 1.7), len: rand(7, 16),
+                    s: Array.from({ length: 18 }, () => (Math.random() < .5 ? "0" : "1"))
+                });
+            }
+        }
+        draw(false);
+    }
+
+    function draw(animate) {
+        ctx.clearRect(0, 0, W, H);
+        const L = light();
+        const lineRGB = L ? "37,99,235" : "96,165,250";
+        const nodeRGB = L ? "29,78,216" : "147,197,253";
+        const LINK = 130, MOUSE = 170;
+
+        // code tokens drifting upward
+        ctx.textBaseline = "middle";
+        for (const k of tokens) {
+            if (animate) {
+                k.y -= k.v;
+                if (k.y < -20) Object.assign(k, makeToken(false));
+            }
+            ctx.font = `${k.s}px "JetBrains Mono", monospace`;
+            ctx.fillStyle = `rgba(${lineRGB},${L ? k.a * .8 : k.a})`;
+            ctx.fillText(k.t, k.x, k.y);
+        }
+
+        // binary rain (edges)
+        if (cols.length) {
+            ctx.font = '13px "JetBrains Mono", monospace';
+            for (const c of cols) {
+                if (animate) {
+                    c.y += c.v;
+                    if (Math.random() < .04) c.s[(Math.random() * c.s.length) | 0] = Math.random() < .5 ? "0" : "1";
+                    if (c.y - c.len * 16 > H) { c.y = rand(-200, 0); c.v = rand(.7, 1.7); }
+                }
+                for (let i = 0; i < c.len; i++) {
+                    const a = (1 - i / c.len) * (L ? .26 : .22);
+                    ctx.fillStyle = `rgba(${i === 0 ? nodeRGB : lineRGB},${i === 0 ? a * 1.8 : a})`;
+                    ctx.fillText(c.s[i % c.s.length], c.x, c.y - i * 16);
+                }
+            }
+        }
+
+        // move nodes
+        if (animate) {
+            for (const p of nodes) {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < -10) p.x = W + 10; else if (p.x > W + 10) p.x = -10;
+                if (p.y < -10) p.y = H + 10; else if (p.y > H + 10) p.y = -10;
+                const dx = p.x - mx, dy = p.y - my, d = Math.hypot(dx, dy);
+                if (d < 110 && d > 0) { p.x += dx / d * .6; p.y += dy / d * .6; }
+            }
+        }
+
+        // edges between close nodes
+        ctx.lineWidth = 1;
+        for (let i = 0; i < nodes.length; i++) {
+            const a = nodes[i];
+            for (let j = i + 1; j < nodes.length; j++) {
+                const b = nodes[j];
+                const d = Math.hypot(a.x - b.x, a.y - b.y);
+                if (d < LINK) {
+                    if (animate && packets.length < 16 && Math.random() < .0016) packets.push({ a, b, t: 0, s: rand(.012, .03) });
+                    ctx.strokeStyle = `rgba(${lineRGB},${(1 - d / LINK) * (L ? .3 : .22)})`;
+                    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                }
+            }
+            // link to the mouse
+            const dm = Math.hypot(a.x - mx, a.y - my);
+            if (dm < MOUSE) {
+                ctx.strokeStyle = `rgba(${lineRGB},${(1 - dm / MOUSE) * .55})`;
+                ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mx, my); ctx.stroke();
+            }
+        }
+
+        // nodes
+        ctx.fillStyle = `rgba(${nodeRGB},${L ? .55 : .6})`;
+        for (const p of nodes) {
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832); ctx.fill();
+        }
+
+        // data packets travelling along the graph edges
+        if (packets.length) {
+            const PRGB = L ? "124,58,237" : "196,181,253";
+            for (let i = packets.length - 1; i >= 0; i--) {
+                const k = packets[i];
+                if (animate) k.t += k.s;
+                const dist = Math.hypot(k.a.x - k.b.x, k.a.y - k.b.y);
+                if (k.t >= 1 || dist > LINK * 1.15) { packets.splice(i, 1); continue; }
+                const x = k.a.x + (k.b.x - k.a.x) * k.t, y = k.a.y + (k.b.y - k.a.y) * k.t;
+                const g = ctx.createRadialGradient(x, y, 0, x, y, 9);
+                g.addColorStop(0, `rgba(${PRGB},.9)`);
+                g.addColorStop(1, `rgba(${PRGB},0)`);
+                ctx.fillStyle = g;
+                ctx.beginPath(); ctx.arc(x, y, 9, 0, 6.2832); ctx.fill();
+            }
+        }
+    }
+
+    function loop() {
+        draw(true);
+        raf = requestAnimationFrame(loop);
+    }
+
+    window.addEventListener("pointermove", e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+    document.addEventListener("mouseleave", () => { mx = my = -9999; });
+
+    let rt;
+    window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(resize, 150); });
+    document.addEventListener("themechange", () => { if (reduce) draw(false); });
+
+    resize();
+    if (!reduce) {
+        loop();
+        document.addEventListener("visibilitychange", () => {
+            cancelAnimationFrame(raf);
+            if (!document.hidden) loop();
+        });
+    }
+})();
+
+
+/* ========================================
+   13. CERTIFICATE IMAGES + LIGHTBOX
+======================================== */
+(() => {
+    const imgs = document.querySelectorAll("img[data-img]");
+    if (!imgs.length) return;
+    const exts = ["jpg", "jpeg", "png", "webp"];
+
+    imgs.forEach(img => {
+        let i = 0;
+        img.addEventListener("load", () => img.classList.add("loaded"));
+        const next = () => {
+            if (i >= exts.length) {
+                const fig = img.closest(".certificate-thumb");
+                if (fig) fig.classList.add("empty");
+                return;
+            }
+            img.src = `${img.dataset.img}.${exts[i++]}`;
+        };
+        img.addEventListener("error", next);
+        next();
+    });
+
+    function openBox(src, alt) {
+        const box = document.createElement("div");
+        box.className = "lightbox";
+        box.setAttribute("role", "dialog");
+        box.setAttribute("aria-label", alt);
+        box.innerHTML = '<button class="lightbox-close" aria-label="Close">✕</button><img alt="">';
+        box.querySelector("img").src = src;
+        box.querySelector("img").alt = alt;
+        const close = () => {
+            box.remove();
+            document.body.classList.remove("modal-open");
+            document.removeEventListener("keydown", onKey);
+        };
+        const onKey = e => { if (e.key === "Escape") close(); };
+        box.addEventListener("click", e => { if (e.target !== box.querySelector("img")) close(); });
+        document.addEventListener("keydown", onKey);
+        document.body.classList.add("modal-open");
+        document.body.appendChild(box);
+        box.querySelector(".lightbox-close").focus();
+    }
+
+    // 3D tilt + moving shine on certificate images
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (fine && !calm) {
+        document.querySelectorAll(".certificate-thumb").forEach(fig => {
+            fig.addEventListener("pointermove", e => {
+                const r = fig.getBoundingClientRect();
+                const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+                fig.style.setProperty("--ry", `${((x - .5) * 12).toFixed(2)}deg`);
+                fig.style.setProperty("--rx", `${((.5 - y) * 10).toFixed(2)}deg`);
+                fig.style.setProperty("--sx", `${(x * 100).toFixed(1)}%`);
+                fig.style.setProperty("--sy", `${(y * 100).toFixed(1)}%`);
+            });
+            fig.addEventListener("pointerleave", () => {
+                fig.style.setProperty("--rx", "0deg");
+                fig.style.setProperty("--ry", "0deg");
+            });
+        });
+    }
+
+    document.querySelectorAll(".certificate-thumb").forEach(fig => {
+        fig.addEventListener("click", () => {
+            const img = fig.querySelector("img");
+            if (img && img.currentSrc) openBox(img.currentSrc, img.alt);
+        });
+    });
+})();
+
+
+/* ========================================
+   14. NOTES PAGE: search + PDF viewer + download with name/email
+======================================== */
+(() => {
+    const grid = document.getElementById("notesGrid");
+    if (!grid) return;
+
+    // Same Web3Forms key as the contact form: every download request lands in your inbox.
+    const WEB3FORMS_KEY = "70850bf5-e1ce-4a41-8c74-2613807df88d";
+
+    const cards = [...grid.querySelectorAll(".note-card")];
+    const input = document.getElementById("notesSearch");
+    const count = document.getElementById("notesCount");
+    const empty = document.getElementById("notesEmpty");
+
+    const driveId = href => { const m = (href || "").match(/\/file\/d\/([^/?#]+)/); return m ? m[1] : null; };
+    const isDummy = href => !/^https?:/i.test(href || "") || /DUMMY|PASTE/i.test(href);
+
+    // cards without a real link yet
+    cards.forEach(c => {
+        if (isDummy(c.dataset.drive)) {
+            c.classList.add("pending");
+            c.querySelectorAll(".note-btn").forEach(b => { b.disabled = true; });
+            const r = c.querySelector(".note-read");
+            if (r) r.innerHTML = "Link coming soon";
+        }
+    });
+
+    function update() {
+        const q = (input.value || "").trim().toLowerCase();
+        let shown = 0;
+        cards.forEach(c => {
+            const hit = !q || c.textContent.toLowerCase().includes(q);
+            c.style.display = hit ? "" : "none";
+            if (hit) shown++;
+        });
+        count.textContent = `${shown} of ${cards.length} notes`;
+        empty.hidden = shown !== 0;
+    }
+    input.addEventListener("input", update);
+    update();
+
+    function lockScroll(on) { document.body.classList.toggle("modal-open", on); }
+
+    /* ---- read online ---- */
+    function openViewer(title, href, id) {
+        const v = document.createElement("div");
+        v.className = "viewer";
+        v.setAttribute("role", "dialog");
+        v.setAttribute("aria-label", title);
+        v.innerHTML = `
+            <div class="viewer-box">
+                <div class="viewer-bar">
+                    <strong></strong>
+                    <span style="display:flex;align-items:center;gap:16px">
+                        <a target="_blank" rel="noopener noreferrer">Open in Drive ↗</a>
+                        <button class="viewer-close" aria-label="Close">✕</button>
+                    </span>
+                </div>
+                <iframe title="" allow="autoplay"></iframe>
+            </div>`;
+        v.querySelector("strong").textContent = title;
+        v.querySelector("a").href = href;
+        const f = v.querySelector("iframe");
+        f.title = title;
+        f.src = `https://drive.google.com/file/d/${id}/preview`;
+        const close = () => { v.remove(); lockScroll(false); document.removeEventListener("keydown", onKey); };
+        const onKey = e => { if (e.key === "Escape") close(); };
+        v.addEventListener("click", e => { if (e.target === v) close(); });
+        v.querySelector(".viewer-close").addEventListener("click", close);
+        document.addEventListener("keydown", onKey);
+        lockScroll(true);
+        document.body.appendChild(v);
+    }
+
+    /* ---- download: ask name + email first ---- */
+    function startDownload(href, id, file) {
+        if (id) {
+            const a = document.createElement("a");
+            a.href = `https://drive.google.com/uc?export=download&id=${id}`;
+            a.download = file;
+            a.rel = "noopener";
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        } else {
+            window.open(href, "_blank", "noopener");
+        }
+    }
+
+    function openDownloadForm(card) {
+        const file = card.dataset.file || "notes.pdf";
+        const title = card.querySelector("h3").textContent;
+        const href = card.dataset.drive;
+        const id = driveId(href);
+        let saved = {};
+        try { saved = JSON.parse(localStorage.getItem("notesUser") || "{}"); } catch (e) { }
+
+        const m = document.createElement("div");
+        m.className = "dl-modal";
+        m.setAttribute("role", "dialog");
+        m.setAttribute("aria-modal", "true");
+        m.setAttribute("aria-label", "Download " + file);
+        m.innerHTML = `
+            <form class="dl-box" novalidate>
+                <button type="button" class="lightbox-close dl-close" aria-label="Close">✕</button>
+                <span class="dl-file"></span>
+                <h3>Before you download</h3>
+                <p>Tell me who is using these notes. It takes five seconds.</p>
+                <label>Your name
+                    <input type="text" name="name" required autocomplete="name" placeholder="Your name">
+                </label>
+                <label>Your Gmail
+                    <input type="email" name="email" required autocomplete="email" placeholder="you@gmail.com">
+                </label>
+                <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <button class="btn btn-primary dl-submit" type="submit">Download PDF <span>↓</span></button>
+                <p class="form-status dl-status" role="status" aria-live="polite"></p>
+            </form>`;
+        m.querySelector(".dl-file").textContent = file;
+        const form = m.querySelector("form");
+        form.name.value = saved.name || "";
+        form.email.value = saved.email || "";
+        const status = m.querySelector(".dl-status");
+        const submit = m.querySelector(".dl-submit");
+        const say = (t, c = "") => { status.textContent = t; status.className = "form-status dl-status " + c; };
+
+        const close = () => { m.remove(); lockScroll(false); document.removeEventListener("keydown", onKey); };
+        const onKey = e => { if (e.key === "Escape") close(); };
+        m.addEventListener("click", e => { if (e.target === m) close(); });
+        m.querySelector(".dl-close").addEventListener("click", close);
+        document.addEventListener("keydown", onKey);
+
+        form.addEventListener("submit", async e => {
+            e.preventDefault();
+            const d = Object.fromEntries(new FormData(form));
+            if (d.botcheck) return;
+            const name = d.name.trim(), email = d.email.trim();
+            if (!name || !/^\S+@\S+\.\S+$/.test(email)) return say("Please enter your name and a valid email.", "err");
+            try { localStorage.setItem("notesUser", JSON.stringify({ name, email })); } catch (e2) { }
+
+            submit.disabled = true;
+            say("Preparing your download...");
+            let logged = true;
+            try {
+                const r = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", Accept: "application/json" },
+                    body: JSON.stringify({
+                        access_key: WEB3FORMS_KEY,
+                        subject: `Notes download: ${file}`,
+                        from_name: "Portfolio Notes Download",
+                        name, email,
+                        message: `${name} (${email}) downloaded ${file} (${title}).`
+                    })
+                });
+                logged = (await r.json()).success;
+            } catch (err) { logged = false; }
+
+            startDownload(href, id, file);   // never block the student if logging fails
+            say(logged ? "Thanks! Your download has started." : "Download started.", "ok");
+            setTimeout(close, 1400);
+        });
+
+        lockScroll(true);
+        document.body.appendChild(m);
+        (form.name.value ? form.email : form.name).focus();
+    }
+
+    cards.forEach(c => {
+        c.querySelector(".note-read").addEventListener("click", () => {
+            if (c.classList.contains("pending")) return;
+            const href = c.dataset.drive, id = driveId(href);
+            const title = c.dataset.file || c.querySelector("h3").textContent;
+            if (id) openViewer(title, href, id); else window.open(href, "_blank", "noopener");
+        });
+        c.querySelector(".note-dl").addEventListener("click", () => {
+            if (!c.classList.contains("pending")) openDownloadForm(c);
+        });
+    });
+})();
+
+
+/* ========================================
+   15. FLOATING TERMINAL (CSE background)
+======================================== */
+(() => {
+    const host = document.querySelector(".background-effects");
+    if (!host) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const box = document.createElement("div");
+    box.className = "cse-terminal";
+    box.setAttribute("aria-hidden", "true");
+    box.innerHTML = '<div class="ct-bar"><i></i><i></i><i></i><span>sajid@portfolio: ~</span></div><pre class="ct-body"></pre>';
+    host.appendChild(box);
+    const body = box.querySelector(".ct-body");
+
+    const script = [
+        ["$ g++ -O2 solve.cpp -o solve", "cmd"],
+        ["compiled: 0 errors, 0 warnings", "ok"],
+        ["$ ./solve < input.txt", "cmd"],
+        ["Accepted  [0.04s, 3.1MB]", "ok"],
+        ["$ git commit -m \"add BFS\"", "cmd"],
+        ["[main 7f3a9c1] add BFS", "ok"],
+        ["$ nmap -sV 10.0.0.5", "cmd"],
+        ["22/tcp open  ssh", "ok"],
+        ["$ python train.py --epochs 20", "cmd"],
+        ["epoch 20/20  acc=0.97", "ok"],
+        ["$ ls notes/", "cmd"],
+        ["CSE241.pdf  CSE343.pdf  ...", "ok"]
+    ];
+    const MAX = 7;
+    const lines = [];
+
+    function render(cursorOn) {
+        body.innerHTML = lines.map(l => `<span class="${l.k}">${l.t.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</span>`).join("\n") + (cursorOn ? '<span class="ct-cur">▌</span>' : "");
+    }
+
+    if (reduce) {
+        script.slice(0, 4).forEach(s => lines.push({ t: s[0], k: s[1] }));
+        render(false);
+        return;
+    }
+
+    let idx = 0;
+    function next() {
+        if (document.hidden) { setTimeout(next, 1500); return; }
+        const [text, kind] = script[idx++ % script.length];
+        const line = { t: "", k: kind };
+        lines.push(line);
+        if (lines.length > MAX) lines.shift();
+        let n = 0;
+        const typeSpeed = kind === "cmd" ? 55 : 16;
+        (function tick() {
+            line.t = text.slice(0, ++n);
+            render(true);
+            if (n < text.length) setTimeout(tick, typeSpeed);
+            else setTimeout(next, kind === "cmd" ? 450 : 1300);
+        })();
+    }
+    next();
+})();
+
+
+/* ========================================
+   16. EVENT PICTURES GALLERY (certificates page)
+   Put photos in images/events/cert-01/ ... cert-07/
+   and name them 1.jpg, 2.jpg, 3.jpg ... (jpg, jpeg, png or webp)
+======================================== */
+(() => {
+    const buttons = document.querySelectorAll(".event-btn");
+    if (!buttons.length) return;
+    const exts = ["jpg", "jpeg", "png", "webp"];
+    const MAX = 8;
+
+    function probe(base, n) {
+        return new Promise(resolve => {
+            let e = 0;
+            const img = new Image();
+            img.onload = () => resolve(img.src);
+            img.onerror = () => { if (e < exts.length) img.src = `${base}/${n}.${exts[e++]}`; else resolve(null); };
+            img.onerror();
+        });
+    }
+
+    async function openGallery(base, title) {
+        const g = document.createElement("div");
+        g.className = "gallery";
+        g.setAttribute("role", "dialog");
+        g.setAttribute("aria-modal", "true");
+        g.setAttribute("aria-label", title + " event pictures");
+        g.innerHTML = `
+            <div class="gal-box">
+                <div class="gal-head">
+                    <div><span class="gal-kicker">Event pictures</span><strong class="gal-title"></strong></div>
+                    <button class="lightbox-close gal-close" aria-label="Close">✕</button>
+                </div>
+                <div class="gal-stage"><div class="gal-loading">Loading pictures...</div></div>
+                <div class="gal-thumbs"></div>
+            </div>`;
+        g.querySelector(".gal-title").textContent = title;
+        const stage = g.querySelector(".gal-stage");
+        const thumbs = g.querySelector(".gal-thumbs");
+
+        let key;
+        const close = () => { g.classList.add("out"); setTimeout(() => g.remove(), 200); document.body.classList.remove("modal-open"); document.removeEventListener("keydown", onKey); };
+        const onKey = e => {
+            if (e.key === "Escape") close();
+            else if (e.key === "ArrowRight") go(1);
+            else if (e.key === "ArrowLeft") go(-1);
+        };
+        g.addEventListener("click", e => { if (e.target === g) close(); });
+        g.querySelector(".gal-close").addEventListener("click", close);
+        document.addEventListener("keydown", onKey);
+        document.body.classList.add("modal-open");
+        document.body.appendChild(g);
+        g.querySelector(".gal-close").focus();
+
+        const found = (await Promise.all(Array.from({ length: MAX }, (_, i) => probe(base, i + 1)))).filter(Boolean);
+
+        if (!found.length) {
+            stage.innerHTML = `<div class="gal-empty"><strong>No pictures yet</strong><span>Add photos to <code>${base}/</code> named <code>1.jpg</code>, <code>2.jpg</code>, <code>3.jpg</code>...</span></div>`;
+            return;
+        }
+
+        let cur = 0;
+        stage.innerHTML = `
+            <button class="gal-nav prev" aria-label="Previous picture">‹</button>
+            <img class="gal-img" alt="">
+            <button class="gal-nav next" aria-label="Next picture">›</button>
+            <span class="gal-count"></span>`;
+        const big = stage.querySelector(".gal-img");
+        const counter = stage.querySelector(".gal-count");
+        const prev = stage.querySelector(".prev"), nextB = stage.querySelector(".next");
+        if (found.length < 2) { prev.hidden = nextB.hidden = true; }
+
+        found.forEach((src, i) => {
+            const t = document.createElement("button");
+            t.className = "gal-thumb";
+            t.setAttribute("aria-label", `Picture ${i + 1}`);
+            t.innerHTML = `<img alt="" loading="lazy">`;
+            t.firstChild.src = src;
+            t.addEventListener("click", () => show(i, i > cur ? 1 : -1));
+            thumbs.appendChild(t);
+        });
+
+        function show(i, dir) {
+            cur = (i + found.length) % found.length;
+            big.classList.remove("in-l", "in-r");
+            void big.offsetWidth;                       // restart the animation
+            big.src = found[cur];
+            big.alt = `${title} picture ${cur + 1}`;
+            big.classList.add(dir < 0 ? "in-l" : "in-r");
+            counter.textContent = `${cur + 1} / ${found.length}`;
+            thumbs.querySelectorAll(".gal-thumb").forEach((t, k) => t.classList.toggle("on", k === cur));
+            const on = thumbs.children[cur];
+            if (on && on.scrollIntoView) on.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+        }
+        function go(d) { if (found.length > 1) show(cur + d, d); }
+        prev.addEventListener("click", () => go(-1));
+        nextB.addEventListener("click", () => go(1));
+
+        // swipe on touch screens
+        let sx = null;
+        stage.addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
+        stage.addEventListener("touchend", e => {
+            if (sx === null) return;
+            const dx = e.changedTouches[0].clientX - sx;
+            if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+            sx = null;
+        });
+
+        show(0, 1);
+    }
+
+    buttons.forEach(b => b.addEventListener("click", () => openGallery(b.dataset.event, b.dataset.title || "Event")));
+})();

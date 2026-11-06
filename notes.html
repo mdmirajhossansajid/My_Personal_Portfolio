@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080c18">
+    <title>Notes | Md Miraj Hossan Sajid</title>
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%23070b16%27/%3E%3Ctext x=%2750%27 y=%2768%27 font-size=%2760%27 text-anchor=%27middle%27 fill=%27%2360a5fa%27 font-family=%27monospace%27 font-weight=%27700%27%3ES%3C/text%3E%3C/svg%3E">
+    <meta property="og:title" content="Notes | Md Miraj Hossan Sajid">
+    <meta property="og:type" content="website">
+    <meta name="description" content="Study notes from the CSE courses of Md Miraj Hossan Sajid, available as PDFs.">
+    <meta property="og:description" content="Study notes from the CSE courses of Md Miraj Hossan Sajid, available as PDFs.">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <script>try{var t=localStorage.getItem('theme');document.documentElement.dataset.theme=(t==='light'||t==='dark')?t:'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background-effects">
+        <div class="grid-background"></div>
+        <div class="gradient-orb orb-one"></div>
+        <div class="gradient-orb orb-two"></div>
+    </div>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    <div class="mouse-glow"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+
+            <a class="logo" href="index.html">
+                &lt;sajid<span>/&gt;</span>
+            </a>
+
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="certificates.html" class="nav-link">Certificates</a>
+                <a href="notes.html" class="nav-link">Notes</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="mailto:mdmirajhossansajidpc@gmail.com?subject=Portfolio%20inquiry" class="nav-contact">
+                    Let's Talk ↗
+                </a>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+    </nav>
+
+    <main>
+        <section class="certificates-hero">
+            <div class="page-intro reveal">
+                <span class="section-label">// STUDY NOTES</span>
+                <h1>Notes from my <span class="gradient-text">CSE Courses</span></h1>
+                <p>
+                    Notes I made while studying. Read a course PDF right here on the page, or download it. Downloads ask for your name and email first.
+                </p>
+            </div>
+        </section>
+
+        <section class="notes-section">
+            <div class="notes-toolbar reveal">
+                <label class="notes-search">
+                    <span class="sr-only">Search notes</span>
+                    <input type="search" id="notesSearch" placeholder="Search by course code or topic, e.g. CSE341" autocomplete="off">
+                </label>
+                <p class="notes-count" id="notesCount" role="status" aria-live="polite"></p>
+            </div>
+
+            <div class="notes-grid" id="notesGrid">
+
+                <!--
+                  TO ADD A NEW COURSE: copy one <article class="note-card ..."> block below, paste it after the last one,
+                  then change: data-drive (Google Drive share link), data-file, the course code, the title and the description.
+                  (While data-drive contains DUMMY the card shows "link coming soon".)
+                -->
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_01/view?usp=sharing" data-file="CSE341.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE341</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE341 Notes</h3>
+                    <p>Class notes and summaries for this course.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_02/view?usp=sharing" data-file="CSE141.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE141</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE141 Structured Programming</h3>
+                    <p>Basics of C, control flow, functions and arrays.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_03/view?usp=sharing" data-file="CSE143.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE143</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE143 Discrete Mathematics</h3>
+                    <p>Logic, sets, graphs, counting and proofs.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_04/view?usp=sharing" data-file="CSE241.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE241</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE241 Data Structures</h3>
+                    <p>Lists, stacks, queues, trees, heaps and hashing.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_05/view?usp=sharing" data-file="CSE243.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE243</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE243 Object-Oriented Programming</h3>
+                    <p>Classes, inheritance, polymorphism and design basics.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_06/view?usp=sharing" data-file="CSE245.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE245</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE245 Digital Logic Design</h3>
+                    <p>Boolean algebra, gates, combinational and sequential circuits.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_07/view?usp=sharing" data-file="CSE247.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE247</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE247 Database Systems</h3>
+                    <p>ER models, SQL, normalization and transactions.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_08/view?usp=sharing" data-file="CSE251.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE251</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE251 Computer Architecture</h3>
+                    <p>Instruction sets, pipelining, memory and I/O.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_09/view?usp=sharing" data-file="CSE343.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE343</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE343 Operating Systems</h3>
+                    <p>Processes, scheduling, memory management and file systems.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_10/view?usp=sharing" data-file="CSE345.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE345</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE345 Computer Networks</h3>
+                    <p>Network layers, TCP/IP, routing and protocols.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_11/view?usp=sharing" data-file="CSE347.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE347</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE347 Software Engineering</h3>
+                    <p>Requirements, design patterns, testing and process models.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_12/view?usp=sharing" data-file="CSE349.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE349</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE349 Theory of Computation</h3>
+                    <p>Automata, grammars, Turing machines and decidability.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_13/view?usp=sharing" data-file="CSE441.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE441</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE441 Artificial Intelligence</h3>
+                    <p>Search, logic, planning and intelligent agents.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_14/view?usp=sharing" data-file="CSE443.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE443</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE443 Machine Learning</h3>
+                    <p>Regression, classification, clustering and evaluation.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_15/view?usp=sharing" data-file="CSE445.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE445</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE445 Cyber Security</h3>
+                    <p>Cryptography, network security and ethical hacking basics.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+            </div>
+
+            <p class="notes-empty" id="notesEmpty" hidden>No notes match your search. Try a different course code.</p>
+        </section>
+
+        <section class="certificate-cta reveal">
+            <span class="section-label">// SHARING</span>
+            <h2>Found these <span class="gradient-text">useful?</span></h2>
+            <p>If you want notes for another course, send me a message.</p>
+            <a href="contact.html" class="btn btn-primary">Get In Touch <span>↗</span></a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <a class="logo" href="index.html">&lt;sajid<span>/&gt;</span></a>
+            <p>Building, learning, and growing one step at a time.</p>
+            <p class="copyright">© <span id="year">2026</span> Md Miraj Hossan Sajid. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
