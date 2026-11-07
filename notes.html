@@ -1,8 +1,12 @@
 <!DOCTYPE html>
+<!-- © 2026 Md Miraj Hossan Sajid. All rights reserved. Copying or reusing this site's code or design without written permission is not allowed. -->
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'sha256-icofNTdHg7YAjWQRwKQ4uKoVlQyKpX0lLGi5S88EdnY='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com; frame-src https://drive.google.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#080c18">
     <title>Notes | Md Miraj Hossan Sajid</title>
@@ -11,12 +15,13 @@
     <meta property="og:title" content="Notes | Md Miraj Hossan Sajid">
     <meta property="og:type" content="website">
     <meta name="description" content="Study notes from the CSE courses of Md Miraj Hossan Sajid, available as PDFs.">
-    <meta property="og:description" content="Study notes from the CSE courses of Md Miraj Hossan Sajid, available as PDFs.">
+    <meta property="og:description"
+        content="Study notes from the CSE courses of Md Miraj Hossan Sajid, available as PDFs.">
 
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
         rel="stylesheet">
-    <script>try{var t=localStorage.getItem('theme');document.documentElement.dataset.theme=(t==='light'||t==='dark')?t:'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+    <script>try { var t = localStorage.getItem('theme'); document.documentElement.dataset.theme = (t === 'light' || t === 'dark') ? t : 'dark' } catch (e) { document.documentElement.dataset.theme = 'dark' }</script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -66,7 +71,8 @@
                 <span class="section-label">// STUDY NOTES</span>
                 <h1>Notes from my <span class="gradient-text">CSE Courses</span></h1>
                 <p>
-                    Notes I made while studying. Read a course PDF right here on the page, or download it. Downloads ask for your name and email first.
+                    Notes I made while studying. Read a course PDF right here on the page, or download it. Downloads ask
+                    for your name and email first.
                 </p>
             </div>
         </section>
@@ -75,7 +81,8 @@
             <div class="notes-toolbar reveal">
                 <label class="notes-search">
                     <span class="sr-only">Search notes</span>
-                    <input type="search" id="notesSearch" placeholder="Search by course code or topic, e.g. CSE341" autocomplete="off">
+                    <input type="search" id="notesSearch" placeholder="Search by course code or topic, e.g. CSE2101"
+                        autocomplete="off">
                 </label>
                 <p class="notes-count" id="notesCount" role="status" aria-live="polite"></p>
             </div>
@@ -88,25 +95,15 @@
                   (While data-drive contains DUMMY the card shows "link coming soon".)
                 -->
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_01/view?usp=sharing" data-file="CSE341.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_01/view?usp=sharing"
+                    data-file="CSE1201.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE341</span>
+                        <span class="note-code">CSE1201</span>
+                        <span class="note-old">Old: CSE161</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE341 Notes</h3>
-                    <p>Class notes and summaries for this course.</p>
-                    <div class="note-actions">
-                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
-                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
-                    </div>
-                </article>
-
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_02/view?usp=sharing" data-file="CSE141.pdf">
-                    <div class="note-top">
-                        <span class="note-code">CSE141</span>
-                        <span class="note-type">PDF</span>
-                    </div>
-                    <h3>CSE141 Structured Programming</h3>
+                    <h3>CSE1201 Structured Programming</h3>
                     <p>Basics of C, control flow, functions and arrays.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
@@ -114,12 +111,31 @@
                     </div>
                 </article>
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_03/view?usp=sharing" data-file="CSE143.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_02/view?usp=sharing"
+                    data-file="CSE1303.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE143</span>
+                        <span class="note-code">CSE1303</span>
+                        <span class="note-old">Old: CSE281</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE143 Discrete Mathematics</h3>
+                    <h3>CSE1303 Object Oriented Programming</h3>
+                    <p>Classes, inheritance, polymorphism with Java.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_03/view?usp=sharing"
+                    data-file="CSE1307.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE1307</span>
+                        <span class="note-old">Old: CSE181</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE1307 Discrete Mathematics</h3>
                     <p>Logic, sets, graphs, counting and proofs.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
@@ -127,12 +143,15 @@
                     </div>
                 </article>
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_04/view?usp=sharing" data-file="CSE241.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_04/view?usp=sharing"
+                    data-file="CSE2101.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE241</span>
+                        <span class="note-code">CSE2101</span>
+                        <span class="note-old">Old: CSE241</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE241 Data Structures</h3>
+                    <h3>CSE2101 Data Structures</h3>
                     <p>Lists, stacks, queues, trees, heaps and hashing.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
@@ -140,25 +159,15 @@
                     </div>
                 </article>
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_05/view?usp=sharing" data-file="CSE243.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_05/view?usp=sharing"
+                    data-file="CSE2103.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE243</span>
+                        <span class="note-code">CSE2103</span>
+                        <span class="note-old">Old: CSE263</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE243 Object-Oriented Programming</h3>
-                    <p>Classes, inheritance, polymorphism and design basics.</p>
-                    <div class="note-actions">
-                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
-                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
-                    </div>
-                </article>
-
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_06/view?usp=sharing" data-file="CSE245.pdf">
-                    <div class="note-top">
-                        <span class="note-code">CSE245</span>
-                        <span class="note-type">PDF</span>
-                    </div>
-                    <h3>CSE245 Digital Logic Design</h3>
+                    <h3>CSE2103 Digital Logic Design</h3>
                     <p>Boolean algebra, gates, combinational and sequential circuits.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
@@ -166,12 +175,47 @@
                     </div>
                 </article>
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_07/view?usp=sharing" data-file="CSE247.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_06/view?usp=sharing"
+                    data-file="CSE2107.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE247</span>
+                        <span class="note-code">CSE2107</span>
+                        <span class="note-old">Old: CSE261</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE247 Database Systems</h3>
+                    <h3>CSE2107 Numerical Methods</h3>
+                    <p>Root finding, interpolation, integration and differential equations.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_07/view?usp=sharing"
+                    data-file="CSE2201.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE2201</span>
+                        <span class="note-old">Old: CSE265</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE2201 Algorithm</h3>
+                    <p>Sorting, graph algorithms, dynamic programming and complexity.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_08/view?usp=sharing"
+                    data-file="CSE2303.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE2303</span>
+                        <span class="note-old">Old: CSE383</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE2303 Database Management System</h3>
                     <p>ER models, SQL, normalization and transactions.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
@@ -179,12 +223,15 @@
                     </div>
                 </article>
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_08/view?usp=sharing" data-file="CSE251.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_09/view?usp=sharing"
+                    data-file="CSE2305.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE251</span>
+                        <span class="note-code">CSE2305</span>
+                        <span class="note-old">Old: CSE343</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE251 Computer Architecture</h3>
+                    <h3>CSE2305 Computer Architecture</h3>
                     <p>Instruction sets, pipelining, memory and I/O.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
@@ -192,12 +239,31 @@
                     </div>
                 </article>
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_09/view?usp=sharing" data-file="CSE343.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_10/view?usp=sharing"
+                    data-file="CSE3101.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE343</span>
+                        <span class="note-code">CSE3101</span>
+                        <span class="note-old">Old: CSE363</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE343 Operating Systems</h3>
+                    <h3>CSE3101 Microprocessors and Microcontrollers</h3>
+                    <p>Microprocessor design and assembly language programming.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_11/view?usp=sharing"
+                    data-file="CSE3201.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE3201</span>
+                        <span class="note-old">Old: CSE361</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE3201 Operating Systems</h3>
                     <p>Processes, scheduling, memory management and file systems.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
@@ -205,38 +271,31 @@
                     </div>
                 </article>
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_10/view?usp=sharing" data-file="CSE345.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_12/view?usp=sharing"
+                    data-file="CSE3203.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE345</span>
+                        <span class="note-code">CSE3203</span>
+                        <span class="note-old">Old: CSE345</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE345 Computer Networks</h3>
-                    <p>Network layers, TCP/IP, routing and protocols.</p>
+                    <h3>CSE3203 Software Engineering</h3>
+                    <p>Requirements, design, testing and process models.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
                         <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
                     </div>
                 </article>
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_11/view?usp=sharing" data-file="CSE347.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_13/view?usp=sharing"
+                    data-file="CSE3207.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE347</span>
+                        <span class="note-code">CSE3207</span>
+                        <span class="note-old">Old: CSE441</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE347 Software Engineering</h3>
-                    <p>Requirements, design patterns, testing and process models.</p>
-                    <div class="note-actions">
-                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
-                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
-                    </div>
-                </article>
-
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_12/view?usp=sharing" data-file="CSE349.pdf">
-                    <div class="note-top">
-                        <span class="note-code">CSE349</span>
-                        <span class="note-type">PDF</span>
-                    </div>
-                    <h3>CSE349 Theory of Computation</h3>
+                    <h3>CSE3207 Theory of Computing</h3>
                     <p>Automata, grammars, Turing machines and decidability.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
@@ -244,12 +303,15 @@
                     </div>
                 </article>
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_13/view?usp=sharing" data-file="CSE441.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_14/view?usp=sharing"
+                    data-file="CSE3301.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE441</span>
+                        <span class="note-code">CSE3301</span>
+                        <span class="note-old">Old: CSE365</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE441 Artificial Intelligence</h3>
+                    <h3>CSE3301 Artificial Intelligence</h3>
                     <p>Search, logic, planning and intelligent agents.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
@@ -257,12 +319,31 @@
                     </div>
                 </article>
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_14/view?usp=sharing" data-file="CSE443.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_15/view?usp=sharing"
+                    data-file="CSE3305.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE443</span>
+                        <span class="note-code">CSE3305</span>
+                        <span class="note-old">Old: CSE341</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE443 Machine Learning</h3>
+                    <h3>CSE3305 Computer Networking and Security</h3>
+                    <p>Network layers, TCP/IP, routing and security basics.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_16/view?usp=sharing"
+                    data-file="CSE4111.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE4111</span>
+                        <span class="note-old">Old: CSE437</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE4111 Machine Learning</h3>
                     <p>Regression, classification, clustering and evaluation.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
@@ -270,13 +351,60 @@
                     </div>
                 </article>
 
-                <article class="note-card spotlight-card reveal" data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_15/view?usp=sharing" data-file="CSE445.pdf">
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_17/view?usp=sharing"
+                    data-file="CSE4171.pdf">
                     <div class="note-top">
-                        <span class="note-code">CSE445</span>
+                        <span class="note-code">CSE4171</span>
                         <span class="note-type">PDF</span>
                     </div>
-                    <h3>CSE445 Cyber Security</h3>
-                    <p>Cryptography, network security and ethical hacking basics.</p>
+                    <h3>CSE4171 Advanced Networking</h3>
+                    <p>Advanced networking concepts and protocols.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_18/view?usp=sharing"
+                    data-file="CSE4173.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE4173</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE4173 Graph Theory</h3>
+                    <p>Graphs, trees, connectivity, coloring and network flows.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_19/view?usp=sharing"
+                    data-file="CSE381.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE381</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE381 Introduction to Embedded Systems</h3>
+                    <p>Embedded system basics, microcontrollers, interfacing and I/O.</p>
+                    <div class="note-actions">
+                        <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
+                        <button type="button" class="note-btn note-dl">Download <span>↓</span></button>
+                    </div>
+                </article>
+
+                <article class="note-card spotlight-card reveal"
+                    data-drive="https://drive.google.com/file/d/DUMMY_FILE_ID_20/view?usp=sharing"
+                    data-file="CSE4179.pdf">
+                    <div class="note-top">
+                        <span class="note-code">CSE4179</span>
+                        <span class="note-type">PDF</span>
+                    </div>
+                    <h3>CSE4179 Cloud Computing</h3>
+                    <p>Cloud models, virtualization, services and deployment.</p>
                     <div class="note-actions">
                         <button type="button" class="note-btn note-read">Read online <span>↗</span></button>
                         <button type="button" class="note-btn note-dl">Download <span>↓</span></button>

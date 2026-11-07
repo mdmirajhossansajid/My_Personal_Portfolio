@@ -3673,3 +3673,13 @@ body.modal-open {
         will-change: transform;
     }
 }
+
+/* old course code shown next to the new one on the notes page */
+.note-old {
+    margin-right: auto;
+    margin-left: 10px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    opacity: .8;
+}
