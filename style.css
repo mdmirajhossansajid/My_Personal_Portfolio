@@ -3577,3 +3577,99 @@ body.modal-open {
         font-size: .72rem;
     }
 }
+
+
+/* =========================================
+   MOBILE / TOUCH PERFORMANCE (smooth scrolling)
+   Removes the GPU-heavy effects that cause scroll lag on phones.
+========================================= */
+@media (max-width: 950px),
+(hover: none),
+(pointer: coarse) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    /* no full-screen noise blend layer */
+    .background-effects::after {
+        display: none;
+    }
+
+    /* orbs: smaller blur, no animation */
+    .gradient-orb {
+        width: 300px;
+        height: 300px;
+        filter: blur(70px);
+        animation: none;
+    }
+
+    .grid-background {
+        -webkit-mask-image: none;
+        mask-image: none;
+        opacity: .35;
+    }
+
+    /* backdrop blurs re-render on every scrolled frame */
+    .navbar,
+    .floating-card,
+    .to-top {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .navbar {
+        background: rgba(7, 11, 22, .96);
+    }
+
+    [data-theme="light"] .navbar {
+        background: rgba(255, 255, 255, .96);
+    }
+
+    .floating-card {
+        background: rgba(16, 24, 44, .97);
+    }
+
+    /* continuous repaint / filter animations off */
+    .gradient-text,
+    .projects-hero h1 span,
+    .projects-section .section-heading h2 span,
+    .competitive-section .section-heading h2 span,
+    .projects-cta h2 span {
+        animation: none;
+    }
+
+    .hero-image-area::before {
+        filter: blur(24px);
+        animation: none;
+    }
+
+    .leadership-card::after {
+        filter: none;
+        background: radial-gradient(circle, rgba(96, 165, 250, .12), transparent 70%);
+    }
+
+    body {
+        animation: none;
+    }
+
+    /* certificate images: skip the blur-to-sharp filter transition */
+    .certificate-thumb img {
+        filter: none;
+        transform: none;
+        transition: opacity .4s ease;
+    }
+
+    .decoration-two {
+        animation: none;
+    }
+
+    .reveal {
+        transition-duration: .5s;
+    }
+
+    .scroll-progress,
+    .to-top {
+        will-change: transform;
+    }
+}

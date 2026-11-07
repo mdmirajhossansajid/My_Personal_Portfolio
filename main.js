@@ -448,7 +448,7 @@ if (prefersReducedMotion) {
     onScroll();
 
     // background orbs follow the mouse a little
-    if (!reduce) addEventListener("pointermove", e => {
+    if (!reduce && finePointer) addEventListener("pointermove", e => {
         root.style.setProperty("--px", (e.clientX / innerWidth - 0.5).toFixed(3));
         root.style.setProperty("--py", (e.clientY / innerHeight - 0.5).toFixed(3));
     }, { passive: true });
@@ -609,7 +609,8 @@ if (prefersReducedMotion) {
     host.prepend(cv);
     const ctx = cv.getContext("2d");
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // touch devices / reduced motion: draw once, no per-frame animation (keeps scrolling smooth)
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches || !finePointer;
     const TOKENS = ["0", "1", "{ }", "</>", "O(n)", "git", "int", "#include", "for", "0x1F", "&&", "=>",
         "SELECT", "malloc", "BFS", "DFS", "sudo", "TCP", "ls -l", "NULL"];
 
@@ -631,14 +632,16 @@ if (prefersReducedMotion) {
     }
 
     function resize() {
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        // mobile address bar show/hide fires resize: ignore small height-only changes
+        if (W && W === window.innerWidth && Math.abs(H - window.innerHeight) < 160) return;
+        const dpr = Math.min(window.devicePixelRatio || 1, finePointer ? 1.5 : 1);
         W = window.innerWidth;
         H = window.innerHeight;
         cv.width = W * dpr;
         cv.height = H * dpr;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-        const n = Math.min(70, Math.round(W * H / 20000));
+        const n = Math.min(finePointer ? 70 : 32, Math.round(W * H / 20000));
         nodes = Array.from({ length: n }, () => ({
             x: rand(0, W), y: rand(0, H),
             vx: rand(-.22, .22), vy: rand(-.22, .22), r: rand(1, 2.2)
