@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!-- © 2026 Md Miraj Hossan Sajid. All rights reserved. Copying or reusing this site's code or design without written permission is not allowed. -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-JS2LSkDN0I2KJU024d/yM0VWhXU2pw+EX/5nL5Rz+P4='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com; frame-src https://drive.google.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080c18">
+    <title>Event Details | Md Miraj Hossan Sajid</title>
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%23070b16%27/%3E%3Ctext x=%2750%27 y=%2768%27 font-size=%2760%27 text-anchor=%27middle%27 fill=%27%2360a5fa%27 font-family=%27monospace%27 font-weight=%27700%27%3ES%3C/text%3E%3C/svg%3E">
+    <meta property="og:title" content="Event Details | Md Miraj Hossan Sajid">
+    <meta property="og:type" content="website">
+    <meta name="description" content="Experience, photos and details of events and certifications by Md Miraj Hossan Sajid.">
+    <meta property="og:description" content="Experience, photos and details of events and certifications by Md Miraj Hossan Sajid.">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <script>try { var t = localStorage.getItem('theme'); document.documentElement.dataset.theme = (t === 'light' || t === 'dark') ? t : 'dark' } catch (e) { document.documentElement.dataset.theme = 'dark' }</script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background-effects">
+        <div class="grid-background"></div>
+        <div class="gradient-orb orb-one"></div>
+        <div class="gradient-orb orb-two"></div>
+    </div>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    <div class="mouse-glow"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a class="logo" href="index.html">&lt;sajid<span>/&gt;</span></a>
+
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="certificates.html" class="nav-link">Certificates</a>
+                <a href="notes.html" class="nav-link">Notes</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="mailto:mdmirajhossansajidpc@gmail.com?subject=Portfolio%20inquiry" class="nav-contact">Let's
+                    Talk ↗</a>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section class="event-hero">
+            <a class="event-back" href="certificates.html">← Back to Certificates</a>
+            <div class="event-intro reveal">
+                <span class="section-label" id="evKicker">// EVENT DETAILS</span>
+                <h1 id="evTitle">Event Details</h1>
+                <div class="event-meta" id="evMeta"></div>
+            </div>
+        </section>
+
+        <section class="event-content" id="eventPage">
+            <figure class="event-cert" id="evCert" hidden></figure>
+            <div class="event-story" id="evStory"></div>
+
+            <div class="event-photos-wrap" id="evPhotosWrap" hidden>
+                <h2>Event <span class="gradient-text">Pictures</span></h2>
+                <div class="event-photos" id="evPhotos"></div>
+            </div>
+
+            <p class="event-missing" id="evMissing" hidden>This event could not be found.</p>
+
+            <nav class="event-nav" id="evNav" aria-label="More events"></nav>
+        </section>
+    </main>
+
+    <!--
+      HOW TO EDIT: each event below has its own <template id="cert-XX"> block. Change the text inside it
+      (use <h4> headings, <p> paragraphs and <ul><li> lists). Photos go in images/events/cert-XX/ as 1.jpg, 2.jpg, 3.jpg ...
+    -->
+    
+    <!-- ===== Certified Penetration Testing Engineer (CPTE) ===== -->
+    <template id="cert-01" class="event-data" data-title="Certified Penetration Testing Engineer (CPTE)" data-issuer="Mile2" data-type="Certification" data-link="https://drive.google.com/file/d/1aGufmjatNx9DVs5lz85v7NmBzmQtfxHk/view?usp=sharing">
+        <h4>My experience</h4>
+        <p>Write about your experience at this event here: what the event was about, what you did, and how it felt.</p>
+        <h4>What I learned</h4>
+        <p>Share the key things you learned, the people you met and the skills you improved.</p>
+        <h4>Highlights</h4>
+        <ul>
+            <li>Add your first highlight</li>
+            <li>Add your second highlight</li>
+        </ul>
+    </template>
+
+    <!-- ===== Applied Penetration Testing Engineer ===== -->
+    <template id="cert-02" class="event-data" data-title="Applied Penetration Testing Engineer" data-issuer="EDGE-CSE CUET DST" data-type="Training" data-link="https://drive.google.com/file/d/1xZTKhl89JINywQb6bGfWgI5ONCXXZR-8/view?usp=sharing">
+        <h4>My experience</h4>
+        <p>Write about your experience at this event here: what the event was about, what you did, and how it felt.</p>
+        <h4>What I learned</h4>
+        <p>Share the key things you learned, the people you met and the skills you improved.</p>
+        <h4>Highlights</h4>
+        <ul>
+            <li>Add your first highlight</li>
+            <li>Add your second highlight</li>
+        </ul>
+    </template>
+
+    <!-- ===== EDGE Digital Skills Training Program ===== -->
+    <template id="cert-04" class="event-data" data-title="EDGE Digital Skills Training Program" data-issuer="EDGE Project" data-type="Training" data-link="https://drive.google.com/file/d/1V4pPyjILb0uB_GPJU2I9YumWPleEK3W1/view?usp=sharing">
+        <h4>My experience</h4>
+        <p>Write about your experience at this event here: what the event was about, what you did, and how it felt.</p>
+        <h4>What I learned</h4>
+        <p>Share the key things you learned, the people you met and the skills you improved.</p>
+        <h4>Highlights</h4>
+        <ul>
+            <li>Add your first highlight</li>
+            <li>Add your second highlight</li>
+        </ul>
+    </template>
+
+    <!-- ===== Phitron Batch 7 ===== -->
+    <template id="cert-05" class="event-data" data-title="Phitron Batch 7" data-issuer="Phitron" data-type="Course Completion" data-link="https://drive.google.com/file/d/1FMTEjgA6GUOMOcitUfxPOTatO8ZkIpOb/view?usp=sharing">
+        <h4>My experience</h4>
+        <p>Write about your experience at this event here: what the event was about, what you did, and how it felt.</p>
+        <h4>What I learned</h4>
+        <p>Share the key things you learned, the people you met and the skills you improved.</p>
+        <h4>Highlights</h4>
+        <ul>
+            <li>Add your first highlight</li>
+            <li>Add your second highlight</li>
+        </ul>
+    </template>
+
+    <!-- ===== ICPC Dhaka Regional 2026 ===== -->
+    <template id="cert-09" class="event-data" data-title="ICPC Dhaka Regional 2026" data-issuer="ICPC" data-type="Programming Contest" data-link="YOUR_DRIVE_LINK">
+        <h4>My experience</h4>
+        <p>Write about your experience at this event here: what the event was about, what you did, and how it felt.</p>
+        <h4>What I learned</h4>
+        <p>Share the key things you learned, the people you met and the skills you improved.</p>
+        <h4>Highlights</h4>
+        <ul>
+            <li>Add your first highlight</li>
+            <li>Add your second highlight</li>
+        </ul>
+    </template>
+
+    <!-- ===== ICPC Dhaka Regional 2025 ===== -->
+    <template id="cert-08" class="event-data" data-title="ICPC Dhaka Regional 2025" data-issuer="ICPC" data-type="Programming Contest" data-link="YOUR_DRIVE_LINK">
+        <h4>My experience</h4>
+        <p>Write about your experience at this event here: what the event was about, what you did, and how it felt.</p>
+        <h4>What I learned</h4>
+        <p>Share the key things you learned, the people you met and the skills you improved.</p>
+        <h4>Highlights</h4>
+        <ul>
+            <li>Add your first highlight</li>
+            <li>Add your second highlight</li>
+        </ul>
+    </template>
+
+    <!-- ===== ICPC Dhaka Regional 2024 ===== -->
+    <template id="cert-07" class="event-data" data-title="ICPC Dhaka Regional 2024" data-issuer="ICPC" data-type="Programming Contest" data-link="https://drive.google.com/file/d/1leOF_BLz3Sz6mmepMdekQzjdg12MLAfG/view?usp=sharing">
+        <h4>My experience</h4>
+        <p>Write about your experience at this event here: what the event was about, what you did, and how it felt.</p>
+        <h4>What I learned</h4>
+        <p>Share the key things you learned, the people you met and the skills you improved.</p>
+        <h4>Highlights</h4>
+        <ul>
+            <li>Add your first highlight</li>
+            <li>Add your second highlight</li>
+        </ul>
+    </template>
+
+    <!-- ===== 17th National Undergraduate Mathematics Olympiad 2026 ===== -->
+    <template id="cert-10" class="event-data" data-title="17th National Undergraduate Mathematics Olympiad 2026" data-issuer="Undergraduate Mathematics Olympiad" data-type="Participation" data-link="YOUR_DRIVE_LINK">
+        <h4>My experience</h4>
+        <p>Write about your experience at this event here: what the event was about, what you did, and how it felt.</p>
+        <h4>What I learned</h4>
+        <p>Share the key things you learned, the people you met and the skills you improved.</p>
+        <h4>Highlights</h4>
+        <ul>
+            <li>Add your first highlight</li>
+            <li>Add your second highlight</li>
+        </ul>
+    </template>
+
+    <!-- ===== National Mathematics Carnival 2026 ===== -->
+    <template id="cert-03" class="event-data" data-title="National Mathematics Carnival 2026" data-issuer="Mathematics Olympiad — University Level" data-type="Achievement" data-link="https://drive.google.com/file/d/1siVY1CVr7Qww-t73WsN2s3PQjhr9ZWTZ/view?usp=sharing">
+        <h4>My experience</h4>
+        <p>Write about your experience at this event here: what the event was about, what you did, and how it felt.</p>
+        <h4>What I learned</h4>
+        <p>Share the key things you learned, the people you met and the skills you improved.</p>
+        <h4>Highlights</h4>
+        <ul>
+            <li>Add your first highlight</li>
+            <li>Add your second highlight</li>
+        </ul>
+    </template>
+
+    <!-- ===== 16th Bangladesh Mathematics Society Conference 2025 ===== -->
+    <template id="cert-06" class="event-data" data-title="16th Bangladesh Mathematics Society Conference 2025" data-issuer="Bangladesh Mathematics Society" data-type="Participation" data-link="https://drive.google.com/file/d/1QPG5b1tlN-T8kl6rR8Dgfssc-mqlh5J1/view?usp=sharing">
+        <h4>My experience</h4>
+        <p>Write about your experience at this event here: what the event was about, what you did, and how it felt.</p>
+        <h4>What I learned</h4>
+        <p>Share the key things you learned, the people you met and the skills you improved.</p>
+        <h4>Highlights</h4>
+        <ul>
+            <li>Add your first highlight</li>
+            <li>Add your second highlight</li>
+        </ul>
+    </template>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <a class="logo" href="index.html">&lt;sajid<span>/&gt;</span></a>
+            <p>Building, learning, and growing one step at a time.</p>
+            <p class="copyright">© <span id="year">2026</span> Md Miraj Hossan Sajid. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

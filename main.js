@@ -296,6 +296,8 @@ if (!currentPage || currentPage === "") {
     currentPage = "index.html";
 }
 
+if (currentPage === "event.html") currentPage = "certificates.html";
+
 document.querySelectorAll(".nav-link").forEach(link => {
 
     const linkPage = link.getAttribute("href");
@@ -1035,115 +1037,124 @@ if (prefersReducedMotion) {
 
 
 /* ========================================
-   16. EVENT PICTURES GALLERY (certificates page)
-   Put photos in images/events/cert-01/ ... cert-07/
-   and name them 1.jpg, 2.jpg, 3.jpg ... (jpg, jpeg, png or webp)
+   16. EVENT DETAILS PAGE (event.html?e=cert-01)
+   Text lives in event.html (<template id="cert-01">), photos in images/events/cert-01/ (1.jpg, 2.jpg ...)
 ======================================== */
 (() => {
-    const buttons = document.querySelectorAll(".event-btn");
-    if (!buttons.length) return;
-    const exts = ["jpg", "jpeg", "png", "webp"];
-    const MAX = 8;
+    const page = document.getElementById("eventPage");
+    if (!page) return;
 
-    function probe(base, n) {
+    const exts = ["jpg", "jpeg", "png", "webp"];
+    const MAX = 20;
+    const $ = id => document.getElementById(id);
+
+    function probe(base, name) {
         return new Promise(resolve => {
             let e = 0;
             const img = new Image();
             img.onload = () => resolve(img.src);
-            img.onerror = () => { if (e < exts.length) img.src = `${base}/${n}.${exts[e++]}`; else resolve(null); };
+            img.onerror = () => { if (e < exts.length) img.src = `${base}/${name}.${exts[e++]}`; else resolve(null); };
             img.onerror();
         });
     }
 
-    async function openGallery(base, title) {
-        const g = document.createElement("div");
-        g.className = "gallery";
-        g.setAttribute("role", "dialog");
-        g.setAttribute("aria-modal", "true");
-        g.setAttribute("aria-label", title + " event pictures");
-        g.innerHTML = `
-            <div class="gal-box">
-                <div class="gal-head">
-                    <div><span class="gal-kicker">Event pictures</span><strong class="gal-title"></strong></div>
-                    <button class="lightbox-close gal-close" aria-label="Close">✕</button>
-                </div>
-                <div class="gal-stage"><div class="gal-loading">Loading pictures...</div></div>
-                <div class="gal-thumbs"></div>
-            </div>`;
-        g.querySelector(".gal-title").textContent = title;
-        const stage = g.querySelector(".gal-stage");
-        const thumbs = g.querySelector(".gal-thumbs");
-
-        let key;
-        const close = () => { g.classList.add("out"); setTimeout(() => g.remove(), 200); document.body.classList.remove("modal-open"); document.removeEventListener("keydown", onKey); };
-        const onKey = e => {
-            if (e.key === "Escape") close();
-            else if (e.key === "ArrowRight") go(1);
-            else if (e.key === "ArrowLeft") go(-1);
-        };
-        g.addEventListener("click", e => { if (e.target === g) close(); });
-        g.querySelector(".gal-close").addEventListener("click", close);
+    function lightbox(src, alt) {
+        const box = document.createElement("div");
+        box.className = "lightbox";
+        box.setAttribute("role", "dialog");
+        box.setAttribute("aria-label", alt);
+        box.innerHTML = '<button class="lightbox-close" aria-label="Close">✕</button><img alt="">';
+        box.querySelector("img").src = src;
+        box.querySelector("img").alt = alt;
+        const close = () => { box.remove(); document.body.classList.remove("modal-open"); document.removeEventListener("keydown", onKey); };
+        const onKey = e => { if (e.key === "Escape") close(); };
+        box.addEventListener("click", e => { if (e.target !== box.querySelector("img")) close(); });
         document.addEventListener("keydown", onKey);
         document.body.classList.add("modal-open");
-        document.body.appendChild(g);
-        g.querySelector(".gal-close").focus();
-
-        const found = (await Promise.all(Array.from({ length: MAX }, (_, i) => probe(base, i + 1)))).filter(Boolean);
-
-        if (!found.length) {
-            stage.innerHTML = `<div class="gal-empty"><strong>No pictures yet</strong><span>Add photos to <code>${base}/</code> named <code>1.jpg</code>, <code>2.jpg</code>, <code>3.jpg</code>...</span></div>`;
-            return;
-        }
-
-        let cur = 0;
-        stage.innerHTML = `
-            <button class="gal-nav prev" aria-label="Previous picture">‹</button>
-            <img class="gal-img" alt="">
-            <button class="gal-nav next" aria-label="Next picture">›</button>
-            <span class="gal-count"></span>`;
-        const big = stage.querySelector(".gal-img");
-        const counter = stage.querySelector(".gal-count");
-        const prev = stage.querySelector(".prev"), nextB = stage.querySelector(".next");
-        if (found.length < 2) { prev.hidden = nextB.hidden = true; }
-
-        found.forEach((src, i) => {
-            const t = document.createElement("button");
-            t.className = "gal-thumb";
-            t.setAttribute("aria-label", `Picture ${i + 1}`);
-            t.innerHTML = `<img alt="" loading="lazy">`;
-            t.firstChild.src = src;
-            t.addEventListener("click", () => show(i, i > cur ? 1 : -1));
-            thumbs.appendChild(t);
-        });
-
-        function show(i, dir) {
-            cur = (i + found.length) % found.length;
-            big.classList.remove("in-l", "in-r");
-            void big.offsetWidth;                       // restart the animation
-            big.src = found[cur];
-            big.alt = `${title} picture ${cur + 1}`;
-            big.classList.add(dir < 0 ? "in-l" : "in-r");
-            counter.textContent = `${cur + 1} / ${found.length}`;
-            thumbs.querySelectorAll(".gal-thumb").forEach((t, k) => t.classList.toggle("on", k === cur));
-            const on = thumbs.children[cur];
-            if (on && on.scrollIntoView) on.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
-        }
-        function go(d) { if (found.length > 1) show(cur + d, d); }
-        prev.addEventListener("click", () => go(-1));
-        nextB.addEventListener("click", () => go(1));
-
-        // swipe on touch screens
-        let sx = null;
-        stage.addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
-        stage.addEventListener("touchend", e => {
-            if (sx === null) return;
-            const dx = e.changedTouches[0].clientX - sx;
-            if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
-            sx = null;
-        });
-
-        show(0, 1);
+        document.body.appendChild(box);
+        box.querySelector(".lightbox-close").focus();
     }
 
-    buttons.forEach(b => b.addEventListener("click", () => openGallery(b.dataset.event, b.dataset.title || "Event")));
+    const all = [...document.querySelectorAll("template.event-data")];
+    const id = (new URLSearchParams(location.search).get("e") || "").trim();
+    const idx = all.findIndex(t => t.id === id);
+
+    if (idx < 0) {
+        $("evTitle").textContent = "Event not found";
+        $("evKicker").textContent = "// 404";
+        $("evMissing").hidden = false;
+        $("evNav").innerHTML = '<a class="event-nav-link" href="certificates.html">← All certificates</a>';
+        return;
+    }
+
+    const tpl = all[idx];
+    const title = tpl.dataset.title;
+    document.title = `${title} | Md Miraj Hossan Sajid`;
+    $("evTitle").textContent = title;
+    $("evKicker").textContent = `// EVENT ${String(idx + 1).padStart(2, "0")} / ${String(all.length).padStart(2, "0")}`;
+
+    // meta chips + certificate link
+    const meta = $("evMeta");
+    [tpl.dataset.type, tpl.dataset.issuer].forEach(t => {
+        if (!t) return;
+        const s = document.createElement("span");
+        s.textContent = t;
+        meta.appendChild(s);
+    });
+    if (/^https?:/i.test(tpl.dataset.link || "")) {
+        const a = document.createElement("a");
+        a.href = tpl.dataset.link;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = "View Certificate ↗";
+        meta.appendChild(a);
+    }
+
+    // story
+    $("evStory").appendChild(tpl.content.cloneNode(true));
+
+    // certificate image
+    probe("images/certificates", id).then(src => {
+        if (!src) return;
+        const fig = $("evCert");
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = `Certificate: ${title}`;
+        img.addEventListener("click", () => lightbox(src, img.alt));
+        fig.appendChild(img);
+        fig.hidden = false;
+    });
+
+    // event photos: load 1, 2, 3 ... until one is missing (avoids dozens of failed requests)
+    (async () => {
+        const grid = $("evPhotos");
+        for (let i = 1; i <= MAX; i++) {
+            const src = await probe(`images/events/${id}`, i);
+            if (!src) break;
+            const fig = document.createElement("figure");
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = `${title} picture ${i}`;
+            img.loading = "lazy";
+            img.addEventListener("click", () => lightbox(src, img.alt));
+            fig.appendChild(img);
+            grid.appendChild(fig);
+            $("evPhotosWrap").hidden = false;
+        }
+    })();
+
+    // previous / next event
+    const nav = $("evNav");
+    const mk = (t, dir) => {
+        const a = document.createElement("a");
+        a.className = "event-nav-link " + dir;
+        a.href = `event.html?e=${t.id}`;
+        a.innerHTML = dir === "prev" ? "<small>← Previous</small>" : "<small>Next →</small>";
+        const b = document.createElement("strong");
+        b.textContent = t.dataset.title;
+        a.appendChild(b);
+        return a;
+    };
+    if (idx > 0) nav.appendChild(mk(all[idx - 1], "prev"));
+    if (idx < all.length - 1) nav.appendChild(mk(all[idx + 1], "next"));
 })();
