@@ -1,8 +1,12 @@
 <!DOCTYPE html>
+<!-- © 2026 Md Miraj Hossan Sajid. All rights reserved. Copying or reusing this site's code or design without written permission is not allowed. -->
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'sha256-icofNTdHg7YAjWQRwKQ4uKoVlQyKpX0lLGi5S88EdnY='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com https://script.google.com https://script.googleusercontent.com; frame-src https://drive.google.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#080c18">
     <title>Contact | Md Miraj Hossan Sajid</title>
@@ -84,7 +88,8 @@
             <div class="section-heading reveal">
                 <span class="section-label">// SEND A MESSAGE</span>
                 <h2>Drop Me a <span class="gradient-text">Message</span></h2>
-                <p>Fill in the form and your message lands straight in my inbox.</p>
+                <p>Fill in the form and your message lands straight in my inbox. To keep messages genuine, I confirm
+                    your email with a quick one-time code.</p>
             </div>
 
             <form class="contact-form spotlight-card reveal" id="contactForm" novalidate>
@@ -103,6 +108,13 @@
                     <textarea name="message" rows="6" required
                         placeholder="Tell me a bit about what you have in mind..."></textarea>
                 </label>
+                <div class="otp-row" id="otpRow" hidden>
+                    <label>Verification code
+                        <input type="text" id="otpCode" name="otp" inputmode="numeric" autocomplete="one-time-code"
+                            maxlength="6" placeholder="6-digit code from your email">
+                    </label>
+                    <button type="button" class="otp-resend" id="otpResend">Resend code</button>
+                </div>
                 <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
                 <div class="form-footer">
                     <button class="btn btn-primary" type="submit">Send Message <span>↗</span></button>

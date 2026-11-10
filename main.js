@@ -529,6 +529,40 @@ if (prefersReducedMotion) {
     const status = document.getElementById("formStatus");
     const btn = form.querySelector("button[type=submit]");
     const say = (t, c = "") => { status.textContent = t; status.className = "form-status " + c; };
+    const setBtn = t => { btn.innerHTML = t + " <span>↗</span>"; };
+
+    // Email OTP verification backend (Google Apps Script web app URL, see apps-script/Code.gs).
+    // While this is not set, the form falls back to Web3Forms (unverified).
+    const CONTACT_API = "https://script.google.com/macros/s/AKfycbyfyldtWe6P2q4oPSHJVGNT_H7ZxhvvXChX5eHL3tGjGnEAACy3nm2Cwblc5d4HPKEp/exec";
+    const useOtp = /^https:\/\/script\.google\.com\//.test(CONTACT_API);
+
+    const otpRow = document.getElementById("otpRow");
+    const otpInput = document.getElementById("otpCode");
+    const otpResend = document.getElementById("otpResend");
+    let codeSent = false;
+
+    async function api(payload) {
+        const r = await fetch(CONTACT_API, { method: "POST", body: JSON.stringify(payload) });
+        return r.json();
+    }
+    function resetOtp() {
+        codeSent = false;
+        if (otpRow) { otpRow.hidden = true; otpInput.value = ""; }
+        setBtn("Send Message");
+    }
+    const emailField = form.elements.email;
+    if (useOtp && emailField) emailField.addEventListener("input", () => { if (codeSent) { resetOtp(); say(""); } });
+
+    if (useOtp && otpResend) otpResend.addEventListener("click", async () => {
+        const email = form.elements.email.value.trim();
+        otpResend.disabled = true;
+        say("Sending a new code...");
+        try {
+            const res = await api({ action: "send_code", email });
+            say(res.ok ? `A new code was sent to ${email}.` : (res.error || "Could not send the code."), res.ok ? "ok" : "err");
+        } catch { say("Could not reach the server. Please email me directly instead.", "err"); }
+        setTimeout(() => { otpResend.disabled = false; }, 30000);
+    });
 
     form.addEventListener("submit", async e => {
         e.preventDefault();
@@ -538,7 +572,36 @@ if (prefersReducedMotion) {
         if (!name || !/^\S+@\S+\.\S+$/.test(email) || !msg) return say("Please add your name, a valid email and a message.", "err");
         const subject = d.subject.trim() || `Portfolio message from ${name}`;
 
-        if (WEB3FORMS_KEY === "YOUR_ACCESS_KEY") { // (only used if the key is removed)
+        /* ---- verified flow (email OTP) ---- */
+        if (useOtp) {
+            btn.disabled = true;
+            try {
+                if (!codeSent) {
+                    say("Sending a verification code to your email...");
+                    const res = await api({ action: "send_code", email });
+                    if (!res.ok) return say(res.error || "Could not send the code.", "err");
+                    codeSent = true;
+                    otpRow.hidden = false;
+                    setBtn("Verify & Send");
+                    say(`We sent a 6-digit code to ${email}. Enter it above to send your message.`, "ok");
+                    otpInput.focus();
+                } else {
+                    const code = otpInput.value.trim();
+                    if (!/^\d{6}$/.test(code)) return say("Please enter the 6-digit code from your email.", "err");
+                    say("Verifying...");
+                    const res = await api({ action: "verify", name, email, subject, message: msg, code });
+                    if (!res.ok) return say(res.error || "Could not verify the code.", "err");
+                    form.reset();
+                    resetOtp();
+                    say("Thank you! Your verified message has been sent.", "ok");
+                }
+            } catch { say("Could not reach the server. Please email me directly instead.", "err"); }
+            finally { btn.disabled = false; }
+            return;
+        }
+
+        /* ---- fallback (no verification backend configured) ---- */
+        if (WEB3FORMS_KEY === "YOUR_ACCESS_KEY") {
             openMail("mdmirajhossansajidpc@gmail.com", subject, `${msg}\n\n- ${name} (${email})`);
             return say("Opening your email app...");
         }
